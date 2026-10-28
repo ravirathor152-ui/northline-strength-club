@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11140f">
+  <meta name="description" content="Northline Strength Club is a fictional Manchester gym concept featuring strength training, group classes and flexible memberships.">
+  <title>Northline Strength Club — Find your strong</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f4f4ec;
+      --ink-dim: #b6b9ae;
+      --paper: #11140f;
+      --panel: #1a1e18;
+      --panel-2: #222820;
+      --line: #343a30;
+      --lime: #d5ff4f;
+      --lime-deep: #b4e331;
+      --muted: #889084;
+      --radius: 20px;
+      --shadow: 0 28px 80px #0008;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+    .demo-bar { padding: 9px 16px; color: #10130e; background: var(--lime); text-align: center; font-size: .69rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .site-header { position: sticky; z-index: 20; top: 0; border-bottom: 1px solid #ffffff12; background: #11140feF; backdrop-filter: blur(18px); }
+    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; min-width: max-content; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; color: #12150f; background: var(--lime); border-radius: 12px; font-size: 1.25rem; font-weight: 950; transform: rotate(-5deg); }
+    .brand-name { display: grid; gap: 2px; line-height: 1; }
+    .brand-name strong { font-size: .93rem; letter-spacing: -.04em; }
+    .brand-name span { color: var(--muted); font-size: .58rem; font-weight: 800; letter-spacing: .18em; }
+    .nav-links { display: flex; align-items: center; gap: clamp(17px, 2.5vw, 34px); color: #c6c9bd; font-size: .82rem; }
+    .nav-links a { transition: color .2s; }
+    .nav-links a:hover { color: var(--lime); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 0 21px; border: 1px solid transparent; border-radius: 999px; color: #11140f; background: var(--lime); font-size: .82rem; font-weight: 850; cursor: pointer; transition: transform .2s, background .2s, box-shadow .2s; }
+    .button:hover { transform: translateY(-2px); background: #e2ff82; box-shadow: 0 10px 28px #caff4a24; }
+    .button-outline { color: var(--ink); background: transparent; border-color: #ffffff42; }
+    .button-outline:hover { color: #11140f; background: var(--lime); border-color: var(--lime); }
+    .menu-toggle { display: none; width: 44px; height: 44px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
+
+    .hero { position: relative; isolation: isolate; overflow: hidden; min-height: 635px; border-bottom: 1px solid #ffffff10; background: radial-gradient(ellipse at 75% 42%, #35412b 0, transparent 33%), linear-gradient(115deg, #11140f 0%, #171b14 60%, #242b1d 100%); }
+    .hero::before { position: absolute; z-index: -1; content: ""; width: min(58vw, 760px); aspect-ratio: 1; right: -8%; top: -8%; border: 1px solid #d5ff4f20; border-radius: 50%; box-shadow: 0 0 0 52px #d5ff4f08, 0 0 0 105px #d5ff4f06; }
+    .hero::after { position: absolute; z-index: -1; content: ""; inset: 0; background: linear-gradient(90deg, #11140f 0%, #11140fe8 36%, #11140f22 78%, #11140f10 100%); pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; min-height: 635px; gap: 45px; padding-block: 65px; }
+    .hero-copy { position: relative; z-index: 2; max-width: 640px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--lime); font-size: .7rem; font-weight: 850; letter-spacing: .17em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--lime); }
+    h1 { max-width: 650px; margin: 22px 0 18px; font-size: clamp(3.45rem, 8.4vw, 7.4rem); font-weight: 850; line-height: .88; letter-spacing: -.085em; text-transform: uppercase; }
+    h1 .accent { color: var(--lime); }
+    .hero-copy > p { max-width: 470px; margin: 0; color: #c2c6b9; font-size: 1.05rem; line-height: 1.7; }
+    .hero-buttons { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 29px; }
+    .hero-meta { display: flex; align-items: center; gap: 18px; margin-top: 33px; color: #c3c7bb; font-size: .78rem; }
+    .meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--lime); }
+    .hero-art { position: relative; display: grid; place-items: center; min-height: 410px; }
+    .art-ring { position: absolute; width: min(34vw, 380px); aspect-ratio: 1; border: 1px solid #d5ff4f72; border-radius: 50%; box-shadow: inset 0 0 70px #d5ff4f0b, 0 0 0 26px #ffffff05, 0 0 0 61px #ffffff04; transform: rotate(-18deg); }
+    .art-ring::before, .art-ring::after { position: absolute; content: ""; border: 1px solid #d5ff4f35; border-radius: 50%; inset: 13%; }
+    .art-ring::after { inset: 27%; border-color: #ffffff30; }
+    .art-number { position: absolute; z-index: 1; color: #f5f7ec; font-size: clamp(7rem, 17vw, 14rem); font-weight: 900; letter-spacing: -.12em; line-height: .8; text-shadow: 0 16px 70px #0009; }
+    .art-number span { color: var(--lime); }
+    .barbell { position: absolute; z-index: 2; top: 48%; left: 13%; display: flex; align-items: center; width: 76%; height: 10px; border-radius: 20px; background: linear-gradient(90deg, transparent, #d5ff4f, #f6ffd9, #d5ff4f, transparent); transform: rotate(-35deg); filter: drop-shadow(0 6px 20px #d5ff4f59); }
+    .barbell::before, .barbell::after { position: absolute; content: ""; width: 27px; height: 72px; border: 6px solid var(--lime); border-radius: 7px; background: #171b13; }
+    .barbell::before { left: 9%; }
+    .barbell::after { right: 9%; }
+    .art-caption { position: absolute; z-index: 3; right: 1%; bottom: 12%; padding: 15px 17px; border: 1px solid #ffffff2c; border-radius: 14px; background: #11140fbd; backdrop-filter: blur(10px); }
+    .art-caption strong { display: block; color: var(--lime); font-size: .72rem; letter-spacing: .12em; }
+    .art-caption span { display: block; margin-top: 5px; color: #eef0e7; font-size: .78rem; }
+    .scroll-cue { position: absolute; right: 22px; bottom: 28px; color: #c2c6b9; font-size: .63rem; font-weight: 800; letter-spacing: .15em; writing-mode: vertical-rl; text-transform: uppercase; }
+
+    .ticker { overflow: hidden; border-bottom: 1px solid var(--line); background: var(--lime); color: #13160f; }
+    .ticker-inner { display: flex; justify-content: space-between; gap: 22px; padding-block: 17px; font-size: .7rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
+    .ticker-inner span::after { content: "✳"; margin-left: 24px; font-size: .9rem; }
+    section { scroll-margin-top: 96px; }
+    .section { padding: 98px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-bottom: 42px; }
+    .section-head h2, .center-head h2 { max-width: 650px; margin: 15px 0 0; font-size: clamp(2.35rem, 5vw, 4.4rem); line-height: .98; letter-spacing: -.075em; text-transform: uppercase; }
+    .section-head > p { max-width: 390px; margin: 0 0 4px; color: var(--ink-dim); font-size: .92rem; line-height: 1.7; }
+    .center-head { max-width: 720px; margin: 0 auto 45px; text-align: center; }
+    .center-head .eyebrow { justify-content: center; }
+    .center-head h2 { margin-inline: auto; }
+    .center-head p { max-width: 540px; margin: 17px auto 0; color: var(--ink-dim); line-height: 1.7; }
+    .program-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .program-card { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 320px; padding: 27px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(150deg, #20261c, #171a15 73%); transition: transform .25s, border-color .25s; }
+    .program-card:hover { transform: translateY(-5px); border-color: #d5ff4f72; }
+    .program-no { color: var(--lime); font-size: .7rem; font-weight: 900; letter-spacing: .13em; }
+    .program-icon { display: grid; place-items: center; width: 55px; height: 55px; margin-top: 28px; border: 1px solid #d5ff4f55; border-radius: 17px; color: var(--lime); font-size: 1.35rem; }
+    .program-card h3 { margin: 25px 0 9px; font-size: 1.25rem; letter-spacing: -.04em; }
+    .program-card p { max-width: 300px; margin: 0; color: var(--ink-dim); font-size: .86rem; line-height: 1.65; }
+    .program-link { display: inline-flex; gap: 8px; align-items: center; margin-top: auto; padding-top: 23px; color: var(--lime); font-size: .78rem; font-weight: 850; }
+    .program-card::after { position: absolute; right: -25px; bottom: -75px; width: 170px; height: 170px; border: 1px solid #d5ff4f20; border-radius: 50%; box-shadow: 0 0 0 24px #d5ff4f08, 0 0 0 48px #d5ff4f06; content: ""; pointer-events: none; }
+
+    .approach { border-block: 1px solid var(--line); background: #171b15; }
+    .approach-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 75px; align-items: center; }
+    .approach-art { position: relative; min-height: 390px; overflow: hidden; display: grid; place-items: center; border: 1px solid #ffffff16; border-radius: 26px; background: radial-gradient(circle at 50% 45%, #39452b 0, #232a1c 36%, #171b15 72%); }
+    .approach-art::before { content: ""; position: absolute; width: 240px; height: 240px; border: 1px solid #d5ff4f6b; border-radius: 50%; box-shadow: 0 0 0 28px #d5ff4f0d, 0 0 0 62px #d5ff4f08; }
+    .approach-art strong { position: relative; color: var(--lime); font-size: clamp(3.6rem, 9vw, 7rem); font-weight: 900; letter-spacing: -.11em; line-height: .8; }
+    .approach-art small { position: absolute; right: 22px; bottom: 20px; color: #c6c9bd; font-size: .65rem; font-weight: 800; letter-spacing: .13em; }
+    .approach-copy h2 { margin: 15px 0 17px; font-size: clamp(2.35rem, 5vw, 4.2rem); line-height: .98; letter-spacing: -.075em; text-transform: uppercase; }
+    .approach-copy > p { max-width: 500px; color: var(--ink-dim); line-height: 1.75; }
+    .principles { display: grid; gap: 18px; margin-top: 28px; }
+    .principle { display: grid; grid-template-columns: 35px 1fr; gap: 13px; align-items: start; }
+    .principle-mark { display: grid; place-items: center; width: 31px; height: 31px; color: #13160f; background: var(--lime); border-radius: 10px; font-weight: 950; }
+    .principle strong { display: block; margin: 2px 0 5px; font-size: .88rem; }
+    .principle span { display: block; color: var(--ink-dim); font-size: .79rem; line-height: 1.55; }
+
+    .timetable-section { background: #f0f1e9; color: #171b14; }
+    .timetable-section .eyebrow { color: #617622; }
+    .timetable-section .eyebrow::before { background: #8da92e; }
+    .timetable-section .section-head > p { color: #697064; }
+    .day-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .day-tab { min-width: 74px; padding: 11px 17px; border: 1px solid #cdd2c6; border-radius: 999px; color: #4a5245; background: transparent; font-size: .76rem; font-weight: 850; cursor: pointer; transition: color .2s, background .2s, border-color .2s; }
+    .day-tab[aria-pressed="true"] { color: #13160f; background: var(--lime); border-color: var(--lime); }
+    .class-list { display: grid; gap: 9px; }
+    .class-row { display: grid; grid-template-columns: 105px 1.2fr 1fr auto; gap: 18px; align-items: center; padding: 19px 21px; border: 1px solid #d9ddd3; border-radius: 15px; background: #fafbf6; }
+    .class-time { color: #6b762d; font-size: .77rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+    .class-name { font-size: .96rem; font-weight: 850; letter-spacing: -.02em; }
+    .class-detail { color: #6a7166; font-size: .76rem; }
+    .class-level { padding: 7px 10px; border-radius: 999px; color: #3c452c; background: #e7edda; font-size: .65rem; font-weight: 850; text-align: center; white-space: nowrap; }
+    .schedule-note { margin: 14px 2px 0; color: #747a70; font-size: .72rem; }
+
+    .membership-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: stretch; }
+    .membership-card { position: relative; display: flex; flex-direction: column; padding: 27px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .membership-card.featured { border-color: var(--lime); background: linear-gradient(155deg, #27301c, #191d16 62%); box-shadow: 0 16px 46px #bff04d12; }
+    .popular-tag { position: absolute; top: 16px; right: 16px; padding: 6px 10px; border-radius: 99px; color: #11140f; background: var(--lime); font-size: .59rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .membership-name { color: var(--ink-dim); font-size: .73rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+    .membership-price { margin: 20px 0 5px; font-size: 2.9rem; font-weight: 900; line-height: 1; letter-spacing: -.08em; }
+    .membership-price small { color: var(--ink-dim); font-size: .88rem; font-weight: 650; letter-spacing: 0; }
+    .membership-desc { min-height: 47px; color: var(--ink-dim); font-size: .81rem; line-height: 1.6; }
+    .membership-card ul { display: grid; gap: 12px; margin: 17px 0 24px; padding: 0; list-style: none; }
+    .membership-card li { display: flex; gap: 9px; align-items: start; color: #d1d4ca; font-size: .78rem; line-height: 1.5; }
+    .membership-card li::before { content: "✓"; color: var(--lime); font-weight: 900; }
+    .membership-card .button { width: 100%; margin-top: auto; }
+    .pricing-note { margin: 18px 0 0; color: var(--muted); font-size: .72rem; text-align: center; }
+
+    .enquire-section { padding: 90px 0; background: linear-gradient(110deg, #1d2518, #12150f 66%); border-block: 1px solid #ffffff14; }
+    .enquire-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: start; gap: 70px; }
+    .enquire-copy h2 { margin: 15px 0; font-size: clamp(2.4rem, 5vw, 4.5rem); line-height: .95; letter-spacing: -.08em; text-transform: uppercase; }
+    .enquire-copy p { max-width: 420px; color: var(--ink-dim); line-height: 1.7; }
+    .location-tag { display: inline-flex; align-items: center; gap: 9px; margin-top: 16px; color: var(--lime); font-size: .74rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .enquire-card { padding: 26px; border: 1px solid #ffffff1c; border-radius: 22px; background: #1b2019; box-shadow: var(--shadow); }
+    .enquire-card h3 { margin: 0; font-size: 1.25rem; letter-spacing: -.04em; }
+    .enquire-card > p { margin: 8px 0 21px; color: var(--ink-dim); font-size: .79rem; line-height: 1.6; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: #d4d7cf; font-size: .7rem; font-weight: 800; }
+    .field input, .field select { width: 100%; min-height: 47px; padding: 0 13px; border: 1px solid #42493d; border-radius: 10px; outline: none; color: var(--ink); background: #12150f; font-size: .8rem; }
+    .field input:focus, .field select:focus { border-color: var(--lime); box-shadow: 0 0 0 3px #d5ff4f20; }
+    .field select option { background: #171b15; }
+    .form-submit { width: 100%; margin-top: 17px; }
+    .form-small { margin: 12px 0 0 !important; color: #899083 !important; font-size: .67rem !important; text-align: center; }
+    .form-status { display: none; margin-top: 14px; padding: 12px; border-radius: 10px; color: #18200f; background: var(--lime); font-size: .78rem; line-height: 1.5; }
+    .form-status.visible { display: block; }
+
+    .faq-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: 65px; }
+    .faq-intro h2 { margin: 15px 0; font-size: clamp(2.3rem, 4.5vw, 4rem); line-height: .98; letter-spacing: -.075em; text-transform: uppercase; }
+    .faq-intro p { color: var(--ink-dim); line-height: 1.7; }
+    .faq-list details { border-bottom: 1px solid var(--line); }
+    .faq-list details:first-child { border-top: 1px solid var(--line); }
+    .faq-list summary { position: relative; padding: 21px 34px 21px 0; font-size: .9rem; font-weight: 800; cursor: pointer; list-style: none; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { position: absolute; top: 18px; right: 0; color: var(--lime); content: "+"; font-size: 1.2rem; }
+    .faq-list details[open] summary::after { content: "−"; }
+    .faq-list details p { max-width: 600px; margin: -2px 35px 20px 0; color: var(--ink-dim); font-size: .82rem; line-height: 1.7; }
+    .final-cta { padding: 52px 0; color: #11140f; background: var(--lime); }
+    .final-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .final-cta h2 { max-width: 760px; margin: 0; font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: .98; letter-spacing: -.07em; text-transform: uppercase; }
+    .final-cta .button { flex: 0 0 auto; color: var(--lime); background: #12150f; }
+    .final-cta .button:hover { background: #252a20; }
+    .footer { padding: 44px 0 23px; background: #0c0e0b; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 30px; padding-bottom: 35px; }
+    .footer-description { max-width: 260px; margin: 15px 0 0; color: #91978a; font-size: .78rem; line-height: 1.65; }
+    .footer-col h4 { margin: 2px 0 14px; color: var(--lime); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; }
+    .footer-col a, .footer-col p { display: block; margin: 10px 0; color: #bdc1b6; font-size: .76rem; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 18px; padding-top: 20px; border-top: 1px solid #ffffff17; color: #747b6f; font-size: .66rem; }
+    .demo-disclaimer { color: #9da294; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    :focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+
+    @media (max-width: 900px) {
+      .nav-links { gap: 16px; font-size: .75rem; }
+      .nav-actions .button { padding-inline: 15px; }
+      .hero-grid { grid-template-columns: 1fr .8fr; gap: 16px; }
+      .hero-art { min-height: 340px; }
+      .program-card { padding: 22px; }
+      .approach-grid, .enquire-grid { gap: 38px; }
+      .faq-layout { gap: 36px; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(100% - 34px, 560px); }
+      .nav { min-height: 68px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-actions { margin-left: auto; }
+      .nav-actions .button { min-height: 42px; font-size: .74rem; }
+      .nav-links { position: absolute; top: 68px; left: 0; right: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 17px 15px; border-bottom: 1px solid var(--line); background: #11140f; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 13px 8px; border-bottom: 1px solid #ffffff10; font-size: .88rem; }
+      .hero { min-height: 0; }
+      .hero-grid { grid-template-columns: 1fr; gap: 5px; padding-block: 60px 43px; }
+      .hero::before { width: 110vw; right: -57%; top: 25%; }
+      .hero::after { background: linear-gradient(90deg, #11140fdd, #11140f66 74%, #11140f33); }
+      h1 { max-width: 540px; margin-top: 19px; font-size: clamp(3.55rem, 17vw, 6rem); }
+      .hero-copy > p { font-size: .94rem; }
+      .hero-art { min-height: 300px; margin-top: -3px; }
+      .art-ring { width: min(74vw, 320px); }
+      .art-number { font-size: clamp(8rem, 37vw, 12rem); }
+      .art-caption { right: 0; bottom: 4%; }
+      .scroll-cue { display: none; }
+      .ticker-inner { justify-content: flex-start; overflow: hidden; gap: 16px; font-size: .64rem; }
+      .ticker-inner span::after { margin-left: 17px; }
+      .section { padding: 72px 0; }
+      .section-head { align-items: start; flex-direction: column; gap: 15px; margin-bottom: 28px; }
+      .section-head h2, .center-head h2 { font-size: clamp(2.35rem, 11vw, 3.7rem); }
+      .program-grid, .membership-grid { grid-template-columns: 1fr; }
+      .program-card { min-height: 270px; }
+      .approach-grid { grid-template-columns: 1fr; gap: 32px; }
+      .approach-art { min-height: 300px; }
+      .approach-art::before { width: 190px; height: 190px; }
+      .class-row { grid-template-columns: 75px 1fr auto; gap: 10px; padding: 15px 13px; }
+      .class-detail { grid-column: 2; grid-row: 2; }
+      .class-level { grid-column: 3; grid-row: 1 / span 2; }
+      .day-tabs { gap: 6px; }
+      .day-tab { min-width: unset; padding: 10px 13px; font-size: .69rem; }
+      .membership-card { min-height: 0; }
+      .membership-desc { min-height: 0; }
+      .enquire-grid, .faq-layout { grid-template-columns: 1fr; gap: 30px; }
+      .enquire-section { padding: 70px 0; }
+      .final-cta-inner { align-items: start; flex-direction: column; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 26px 18px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; }
+    }
+    @media (max-width: 420px) {
+      .demo-bar { font-size: .58rem; }
+      .brand-name strong { font-size: .83rem; }
+      .brand-name span { font-size: .51rem; }
+      .brand-mark { width: 34px; height: 34px; }
+      .nav-actions .button { padding-inline: 12px; }
+      .nav-actions .button span { display: none; }
+      .hero-buttons .button { width: 100%; }
+      .hero-buttons .button-outline { width: auto; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .class-row { grid-template-columns: 63px 1fr; }
+      .class-level { grid-column: 2; grid-row: 3; justify-self: start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-bar">Portfolio concept · fictional Manchester gym · all prices and class times are samples</div>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Northline Strength Club home">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span class="brand-name"><strong>NORTHLINE</strong><span>STRENGTH CLUB</span></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#training">Training</a><a href="#timetable">Timetable</a><a href="#membership">Membership</a><a href="#faq">FAQs</a>
+      </div>
+      <div class="nav-actions">
+        <a class="button" href="#enquire">Book an intro <span aria-hidden="true">↗</span></a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navLinks"><span aria-hidden="true">☰</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Manchester · Train your way</div>
+          <h1 id="heroTitle">Find your <span class="accent">strong.</span></h1>
+          <p>Good training. Good people. No ego. Build strength, move better and find a routine that fits real life.</p>
+          <div class="hero-buttons">
+            <a class="button" href="#enquire">Book an intro session <span aria-hidden="true">↗</span></a>
+            <a class="button button-outline" href="#timetable">Explore classes <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-meta"><span class="meta-dot"></span><span>Strength coaching</span><span class="meta-dot"></span><span>All experience levels</span></div>
+        </div>
+        <div class="hero-art" aria-label="Abstract Northline strength training graphic" role="img">
+          <div class="art-ring"></div><div class="art-number">N<span>°</span>1</div><div class="barbell"></div>
+          <div class="art-caption"><strong>SHOW UP. GET STRONG.</strong><span>Your next session starts here.</span></div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">Scroll to explore ↓</div>
+    </section>
+
+    <div class="ticker" aria-label="Our training approach"><div class="container ticker-inner"><span>Strength</span><span>Conditioning</span><span>Coaching</span><span>Community</span></div></div>
+
+    <section class="section" id="training">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="eyebrow">Built around you</div><h2>Train for the life you live.</h2></div>
+          <p>Start where you are. Our sessions are structured, coach-led and easy to scale, whether you’re learning the basics or building consistency.</p>
+        </div>
+        <div class="program-grid">
+          <article class="program-card">
+            <span class="program-no">01 / STRENGTH</span><span class="program-icon" aria-hidden="true">↗</span>
+            <h3>Strength foundations</h3><p>Learn the key lifts, build confidence with equipment and progress at a pace that feels right.</p><a class="program-link" href="#timetable">See strength sessions <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="program-card">
+            <span class="program-no">02 / CONDITIONING</span><span class="program-icon" aria-hidden="true">◎</span>
+            <h3>Engine room</h3><p>Get moving with smart intervals, varied circuits and coaching that keeps the session approachable.</p><a class="program-link" href="#timetable">See conditioning classes <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="program-card">
+            <span class="program-no">03 / COACHING</span><span class="program-icon" aria-hidden="true">✳</span>
+            <h3>Small-group coaching</h3><p>Get expert guidance, a plan to follow and the energy of training alongside other people.</p><a class="program-link" href="#enquire">Meet your coach <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="approach section" aria-labelledby="approachTitle">
+      <div class="container approach-grid">
+        <div class="approach-art" role="img" aria-label="Abstract circular graphic showing the Northline training approach"><strong>MOVE<br>WELL.</strong><small>CONSISTENCY OVER HYPE</small></div>
+        <div class="approach-copy">
+          <div class="eyebrow">A better kind of gym</div><h2 id="approachTitle">Progress, without the pressure.</h2>
+          <p>Northline is designed to make training feel clear and welcoming. Coaches help you understand the session, adapt movements and build a routine you can return to.</p>
+          <div class="principles">
+            <div class="principle"><span class="principle-mark" aria-hidden="true">1</span><div><strong>Know what to do</strong><span>Every class has a plan, coaching cues and options for different experience levels.</span></div></div>
+            <div class="principle"><span class="principle-mark" aria-hidden="true">2</span><div><strong>Make it fit your week</strong><span>Choose from morning, lunchtime and evening sessions in the sample timetable.</span></div></div>
+            <div class="principle"><span class="principle-mark" aria-hidden="true">3</span><div><strong>Keep showing up</strong><span>Build a steady practice with supportive people and progress you can feel.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section timetable-section" id="timetable">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="eyebrow">Find your session</div><h2>A week that moves with you.</h2></div>
+          <p>Choose a day to see a sample of the sessions on offer. Class names and times are demo content and should be replaced with the gym’s live timetable.</p>
+        </div>
+        <div class="day-tabs" role="group" aria-label="Choose a day">
+          <button class="day-tab" type="button" data-day="mon" aria-pressed="true">Monday</button>
+          <button class="day-tab" type="button" data-day="tue" aria-pressed="false">Tuesday</button>
+          <button class="day-tab" type="button" data-day="wed" aria-pressed="false">Wednesday</button>
+          <button class="day-tab" type="button" data-day="thu" aria-pressed="false">Thursday</button>
+          <button class="day-tab" type="button" data-day="fri" aria-pressed="false">Friday</button>
+          <button class="day-tab" type="button" data-day="sat" aria-pressed="false">Saturday</button>
+        </div>
+        <div class="class-list" id="classList" aria-live="polite"></div>
+        <p class="schedule-note">Sample timetable for the website concept. Confirm live class times with the gym before publishing.</p>
+      </div>
+    </section>
+
+    <section class="section" id="membership">
+      <div class="container">
+        <div class="center-head"><div class="eyebrow">Memberships</div><h2>Choose your way in.</h2><p>Start with the access and coaching that suit your routine. Change the options and sample prices to match the real gym.</p></div>
+        <div class="membership-grid">
+          <article class="membership-card">
+            <span class="membership-name">Open Gym</span><div class="membership-price">£35<small> / month</small></div><p class="membership-desc">For independent sessions and a flexible training routine.</p>
+            <ul><li>Gym floor access</li><li>Strength equipment</li><li>Monthly progress check-in</li></ul><button class="button button-outline" type="button" data-plan="Open Gym">Ask about this plan</button>
+          </article>
+          <article class="membership-card featured">
+            <span class="popular-tag">Most flexible</span><span class="membership-name">Club Access</span><div class="membership-price">£59<small> / month</small></div><p class="membership-desc">A balanced mix of coached classes and open training.</p>
+            <ul><li>Gym floor access</li><li>Group classes included</li><li>Beginner-friendly intro</li></ul><button class="button" type="button" data-plan="Club Access">Ask about this plan <span aria-hidden="true">↗</span></button>
+          </article>
+          <article class="membership-card">
+            <span class="membership-name">Coach Plus</span><div class="membership-price">£89<small> / month</small></div><p class="membership-desc">Extra structure for people who like support and a clear plan.</p>
+            <ul><li>Everything in Club Access</li><li>Small-group coaching</li><li>Personal training plan</li></ul><button class="button button-outline" type="button" data-plan="Coach Plus">Ask about this plan</button>
+          </article>
+        </div>
+        <p class="pricing-note">All prices shown are fictional portfolio-demo examples, not offers from a real gym.</p>
+      </div>
+    </section>
+
+    <section class="enquire-section" id="enquire">
+      <div class="container enquire-grid">
+        <div class="enquire-copy"><div class="eyebrow">Your first step</div><h2>Let’s find your starting point.</h2><p>Tell us what you’re interested in and the sample team will get back to you. This enquiry form is a front-end demo and does not send or store personal details.</p><div class="location-tag"><span aria-hidden="true">⌖</span> Manchester City Centre · UK</div></div>
+        <form class="enquire-card" id="enquiryForm">
+          <h3>Book an intro</h3><p>Share a few details to start a conversation about training.</p>
+          <div class="form-grid">
+            <div class="field"><label for="fullName">Your name</label><input id="fullName" name="name" autocomplete="name" placeholder="e.g. Sam Taylor" required></div>
+            <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="sam@example.com" required></div>
+            <div class="field"><label for="postcode">Postcode</label><input id="postcode" name="postcode" autocomplete="postal-code" placeholder="M4 1AA" required></div>
+            <div class="field"><label for="interest">I’m interested in</label><select id="interest" name="interest" required><option value="" disabled selected>Choose an option</option><option>Open Gym</option><option>Club Access</option><option>Coach Plus</option><option>Just looking around</option></select></div>
+            <div class="field full"><label for="goal">What would you like help with? <span style="color:var(--muted);font-weight:500">(optional)</span></label><input id="goal" name="goal" placeholder="Getting started, strength, classes…"></div>
+          </div>
+          <button class="button form-submit" type="submit">Send an enquiry <span aria-hidden="true">↗</span></button>
+          <p class="form-small">Demo only. Submitting this form will not contact a real gym.</p>
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container faq-layout">
+        <div class="faq-intro"><div class="eyebrow">Good to know</div><h2>New to this? Start here.</h2><p>Clear answers help you feel more comfortable before your first visit.</p></div>
+        <div class="faq-list">
+          <details><summary>Can I join if I’m new to the gym?</summary><p>Yes. The concept includes an intro session and beginner-friendly class options. A real gym should explain its onboarding and coaching support clearly.</p></details>
+          <details><summary>What should I bring to my first session?</summary><p>Comfortable training clothes, clean indoor trainers and a water bottle are a good start. Confirm the real gym’s equipment and facility guidance before publishing.</p></details>
+          <details><summary>Can I try a class before choosing a membership?</summary><p>This demo invites visitors to book an intro. Replace this answer with the real gym’s trial, guest and membership policies.</p></details>
+          <details><summary>Where is Northline?</summary><p>This is a fictional Manchester gym concept. Add the real address, travel details and accessibility information when adapting the demo for a client.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta"><div class="container final-cta-inner"><h2>Good training starts with showing up.</h2><a class="button" href="#enquire">Book an intro session <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">N</span><span class="brand-name"><strong>NORTHLINE</strong><span>STRENGTH CLUB</span></span></a><p class="footer-description">A fictional Manchester gym website concept: strength, conditioning and supportive coaching.</p></div>
+        <div class="footer-col"><h4>Explore</h4><a href="#training">Training</a><a href="#timetable">Timetable</a><a href="#membership">Membership</a></div>
+        <div class="footer-col"><h4>Start here</h4><a href="#enquire">Book an intro</a><a href="#faq">FAQs</a><a href="#enquire">Contact</a></div>
+        <div class="footer-col"><h4>Location</h4><p>Manchester City Centre</p><p>United Kingdom</p><p>Opening times: sample only</p></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Northline Strength Club · Fictional portfolio concept</span><span class="demo-disclaimer">Replace sample prices, timetable, policies and details before launch.</span></div>
+    </div>
+  </footer>
+
+  <script>
+    const sampleClasses = {
+      mon: [
+        ["06:30", "Strength Foundations", "Coach-led · 45 minutes", "All levels"],
+        ["12:15", "Lunch Break Lift", "Small group · 40 minutes", "All levels"],
+        ["18:00", "Engine Room", "Conditioning · 45 minutes", "Intermediate"]
+      ],
+      tue: [
+        ["07:00", "Strength Foundations", "Coach-led · 45 minutes", "All levels"],
+        ["17:30", "Mobility & Core", "Movement · 40 minutes", "All levels"],
+        ["19:00", "Barbell Club", "Technique · 50 minutes", "Intermediate"]
+      ],
+      wed: [
+        ["06:30", "Engine Room", "Conditioning · 45 minutes", "All levels"],
+        ["12:15", "Lunch Break Lift", "Small group · 40 minutes", "All levels"],
+        ["18:30", "Strength Foundations", "Coach-led · 45 minutes", "All levels"]
+      ],
+      thu: [
+        ["07:00", "Mobility & Core", "Movement · 40 minutes", "All levels"],
+        ["17:30", "Barbell Club", "Technique · 50 minutes", "Intermediate"],
+        ["19:00", "Engine Room", "Conditioning · 45 minutes", "All levels"]
+      ],
+      fri: [
+        ["06:30", "Strength Foundations", "Coach-led · 45 minutes", "All levels"],
+        ["12:15", "Lunch Break Lift", "Small group · 40 minutes", "All levels"],
+        ["17:45", "Friday Finisher", "Team conditioning · 35 minutes", "All levels"]
+      ],
+      sat: [
+        ["09:00", "Weekend Strength", "Coach-led · 50 minutes", "All levels"],
+        ["10:15", "Engine Room", "Conditioning · 45 minutes", "All levels"],
+        ["11:15", "Mobility & Core", "Movement · 40 minutes", "All levels"]
+      ]
+    };
+
+    const classList = document.querySelector("#classList");
+    const dayTabs = [...document.querySelectorAll(".day-tab")];
+    function renderClasses(day) {
+      classList.innerHTML = sampleClasses[day].map(([time, name, details, level]) => `
+        <article class="class-row">
+          <time class="class-time">${time}</time>
+          <strong class="class-name">${name}</strong>
+          <span class="class-detail">${details}</span>
+          <span class="class-level">${level}</span>
+        </article>`).join("");
+      dayTabs.forEach(tab => tab.setAttribute("aria-pressed", String(tab.dataset.day === day)));
+    }
+    dayTabs.forEach(tab => tab.addEventListener("click", () => renderClasses(tab.dataset.day)));
+    renderClasses("mon");
+
+    const menuToggle = document.querySelector("#menuToggle");
+    const navLinks = document.querySelector("#navLinks");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
+      navLinks.classList.toggle("open", !isOpen);
+    });
+    navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation");
+    }));
+
+    document.querySelectorAll("[data-plan]").forEach(button => button.addEventListener("click", () => {
+      document.querySelector("#interest").value = button.dataset.plan;
+      document.querySelector("#enquire").scrollIntoView({ behavior: "smooth" });
+      document.querySelector("#fullName").focus({ preventScroll: true });
+    }));
+
+    document.querySelector("#enquiryForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const status = document.querySelector("#formStatus");
+      status.textContent = "Thanks — this portfolio demo does not send or save your enquiry. Connect a real booking or CRM service before launch.";
+      status.classList.add("visible");
+    });
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
